@@ -24,12 +24,12 @@
                     <div class="row mt-2">
                         <div class="col-4">
                             <a href="{{url('confirmRequest' . $user->id . '/')}}" class="profile-link">
-                                <button class="btn btn-secondary btn-sm ">Accept friend</button>
+                                <button class="btn btn-primary btn-sm "><i class="fas fa-user-check" style="font-size: x-large"></i> Accept friend</button>
                             </a>
                         </div>
                         <div class="col-5">
                             <a href="{{url('deleteRequest' . $user->id . '/')}}" class=" profile-link">
-                                <button class="btn btn-secondary btn-sm">Decline Friend request</button>
+                                <button class="btn btn-primary btn-sm"><i class="fas fa-trash-alt" style="font-size: x-large"></i> Decline Friend request</button>
                             </a>
                         </div>
                     </div>

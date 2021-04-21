@@ -26,11 +26,15 @@ class MessageController extends Controller
         }
         $users = User::wherein('id', $friend_ids)->orderByDesc('updated_at')->get();
 
+
         return view('messages.index',['users' => $users]);
     }
 
     public function getMessage($user_id){
         $my_id = Auth::id();
+
+        Message::where(['from' => $user_id, 'to' => $my_id])->update(['is_read' => 1]);
+
         $messages = Message::where(function ($query) use ($user_id, $my_id) {
             $query->where('from', $user_id)->where('to', $my_id);
         })->oRwhere(function ($query) use ($user_id, $my_id) {
@@ -51,7 +55,7 @@ class MessageController extends Controller
             $data->from = $from;
             $data->to = $to;
             $data->message = $message;
-            $data->is_read = 0; // message will be unread when sending message
+            $data->is_read = 0;
             $data->save();
 
             // pusher

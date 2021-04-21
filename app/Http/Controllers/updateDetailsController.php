@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class updateDetailsController extends Controller
 {
@@ -57,25 +58,34 @@ class updateDetailsController extends Controller
     }
 
 
-    public function update(Request $request, User $user)
-    {
+    public function update(Request $request, User $user){
+
+
+
         $validatedAttributes = request()->validate([
             'name' => ['string', 'max:255'],
             'user_info' => ['max:255'],
             'UniCourse' => ['max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users'],
+            'university_year'=> ['max:255'],
+            'date_of_birth'=>['nullable','date','before:'.Carbon::now()->subYears(18)],
+            'gender'=>['max:255'],
 //            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'image' => ['image'],
         ]);
-//        if ($request->has('password')) $validatedAttributes['password'] = Hash::make($validatedAttributes['password']);
-//            $user->update($validatedAttributes);
 
+        if (isset($request->date_of_birth)) {
+            $dob = Carbon::createFromFormat('m/d/Y', $request->date_of_birth)->format('Y-m-d');
+            $validatedAttributes['date_of_birth'] = $dob;
+            $user->update($validatedAttributes);
+        }
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $path = $image->storeAs('image', $imageName);
             $validatedAttributes['image'] = $path;
             $user->update($validatedAttributes);
+
         }
 
         $user->update($validatedAttributes);
@@ -171,6 +181,14 @@ class updateDetailsController extends Controller
         return back();
     }
 
+    public  function checkProfile($id){
+
+    $users = User::where('id',$id)->get();
+//    $users->date_of_birth = Carbon::createFromFormat('Y-m-d', $users->date_of_birth)->format('d/m/Y');
+
+
+        return view('profile.userprofile',compact('users'));
+    }
     public function friendsList(){
 //        $user_id = Auth::user()->id;
 //        $friend1 = DB::table('friends')

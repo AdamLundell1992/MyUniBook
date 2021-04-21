@@ -17,7 +17,7 @@
 
                         <div class="flex flex-wrap">
                             <label for="name" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                                {{ __('Name') }}:
+                                <i class="fas fa-user-circle" style="font-size: x-large"></i> {{ __('Name') }}
                             </label>
 
                             <input id="name" type="text" value="{{Auth::user()->name}}"
@@ -32,7 +32,7 @@
                         </div>
                         <div class="flex flex-wrap ">
                             <label for="user_info" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                                {{ __('User information') }}:
+                                <i class="fas fa-user-secret" style="font-size: x-large"></i> {{ __('User information') }}
                             </label>
 
                             <textarea id="user_info" type="text" value="{{Auth::user()->user_info}}"
@@ -47,7 +47,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="fw-bold text-black-100 mb-1" >Change your university Course below!</label>
+                            <label class="fw-bold text-black-100 mb-1" ><i class="fas fa-graduation-cap" style="font-size: x-large"></i> University Course</label>
                             <select class="form-control" name="UniCourse" id="UniCourse" >
                                 <li class="list-group-item">
                                     <option>{{Auth::user()->UniCourse}}</option>
@@ -67,6 +67,58 @@
                             <li class="list-group-item">
                                 <option value="Computer Science">Computer Science</option>
                             </li>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-bold text-black-100 mb-1" ><i class="fas fa-school" style="font-size: x-large"></i> University Year</label>
+                            <select class="form-control" name="university_year" id="university_year" >
+                                <li class="list-group-item">
+                                    <option>{{Auth::user()->university_year}}</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="1st Year Student">1st Year</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="2nd Year Student">2nd Year</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="3rd Year Student">3rd Year</option>
+                                </li>
+                            </select>
+                        </div>
+                        <div class="flex flex-wrap">
+                            <label for="date_of_birth" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                                <i class="far fa-calendar-alt" style="font-size: x-large"></i> {{ __('Date Of Birth') }}
+                            </label>
+
+                            <input id="datepicker" type="text"  autocomplete="off" value="{{ Carbon\Carbon::parse(Auth::user()->date_of_birth)->format('d/m/Y') }}"
+                                   class="form-control autocomplete  datepicker w-full @error('date_of_birth')  border-red-500 @enderror"
+                                   name="date_of_birth">
+
+                            @error('date_of_birth')
+                            <p class="text-red-500 text-xs italic mt-4">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label class="fw-bold text-black-100 mb-1" ><i class="fas fa-venus-mars" style="font-size: x-large"></i> Gender <i class="fas fa-transgender-alt" style="font-size: x-large"></i></label>
+                            <select class="form-control" name="gender" id="gender" >
+                                <li class="list-group-item">
+                                    <option>{{Auth::user()->gender}}</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Personal">Personal</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Male">Male</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Female">Female</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Other">Other</option>
+                                </li>
                             </select>
                         </div>
 {{--                        <div class="flex flex-wrap">--}}
@@ -93,8 +145,8 @@
 {{--                            <input id="password-confirm" type="password" class="form-input w-full"--}}
 {{--                                   name="password_confirmation" autocomplete="new-password">--}}
 {{--                        </div>--}}
-                        <label for="image" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Profile Picture') }}
+                        <label for="image" class="fw-bold mb-2 sm:mb-4">
+                            <i class="fas fa-image" style="font-size: x-large"></i> {{ __('Profile Picture') }}
                         </label>
                         <div class=" control mb-3">
                             <input type="file" name="image" class="form-control" id="image">
@@ -102,7 +154,7 @@
                         <div class="flex flex-wrap pb-5">
                             <button type="submit"
                                     class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 sm:py-4">
-                                update user data
+                                <i class="fas fa-user-edit" style="font-size: x-large"></i> Update User-Data
                             </button>
 
                         </div>

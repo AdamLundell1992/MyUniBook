@@ -37,6 +37,8 @@ Route::get('/confirmRequest{id}/',[\App\Http\Controllers\updateDetailsController
 Route::get('/deleteRequest{id}/',[\App\Http\Controllers\updateDetailsController::class,'deleteRequest']);
 Route::get('/friendsList',[\App\Http\Controllers\updateDetailsController::class,'friendsList']);
 Route::get('/unFriend{id}',[\App\Http\Controllers\updateDetailsController::class,'unFriend']);
+Route::get('/checkProfile/{id}',[\App\Http\Controllers\updateDetailsController::class,'checkProfile']);
+
 
 //comments
 Route::delete('/comments/', [\App\Http\Controllers\CommentController::class, 'destroy'])->name("delete_comment");

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Traits\Friendable;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +29,10 @@ class User extends Authenticatable
         'image',
         'user_info',
         'UniCourse',
+        'date_of_birth',
+        'gender',
+        'date_of_birth',
+        'university_year'
     ];
 
     /**

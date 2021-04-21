@@ -49,22 +49,60 @@
 
                                     ?>
 
-                        <div class="row pb-5">
-                            <div class="col-md-2 col-sm-2">
-                                <img src="{{asset($user->image)}}" alt="user" class="profile-photo-lg">
-                            </div>
-                            <div class="col-md-7 col-sm-7">
-                                <h5>{{$user->name}}</h5>
-                                <p>{{$user->UniCourse}}</p>
-                                <p class="text-muted">{{$user->email}}</p>
-                            </div>
+                                    <div class="container flex-lg-fill text-center">
+                                        <div class="row ">
+                                        </div>
+                                        <div class="">
+                                            <div class="text-center card-box">
+                                                <div class="member-card pt-2 pb-2">
+                                                    <div class="mb-5 thumb-lg member-thumb mx-auto"><img src="{{asset($user->image)}}"
+                                                                                                         class="rounded-circle img-thumbnail"
+                                                                                                         alt="profile-image"></div>
+                                                    <div class="">
+                                                        <h5 class="fw-bold" style="font-size: x-large">
+                                                            <i class="fas fa-user-circle" style="font-size: x-large"></i> {{$user->name}}
+                                                        </h5>
+                                                        <p class="fw-bold" >Email <span>| </span><span><a href="#"
+                                                                                                          class="text-pink">{{$user->email}}</a></span>
+                                                        </p>
+                                                        <div class="profile-head">
+                                                            <h5 class="fw-bold" style="font-size: x-large">
+                                                                <i class="fas fa-graduation-cap" style="font-size: x-large"></i> {{$user->UniCourse}}
+                                                            </h5>
+                                                            <h6 style="font-size: x-large">
+
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="social-links list-inline pt-2">
+                                                        <li class="list-inline-item"><p title="" data-placement="top" data-toggle="tooltip"
+                                                                                        class="tooltips"><i class="fas fa-users"
+                                                                                                            style="font-size: x-large"></i>
+                                                            </p></li>
+                                                        <li class="list-inline-item"><p title="" data-placement="top" data-toggle="tooltip"
+                                                                                        class="tooltips"><i class="far fa-handshake"
+                                                                                                            style="font-size: x-large"></i>
+                                                            </p></li>
+                                                        <li class="list-inline-item"><p title="" data-placement="top" data-toggle="tooltip"
+                                                                                        class="tooltips"><i class="fas fa-university"
+                                                                                                            style="font-size: x-large"></i>
+                                                            </p></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
+                                        </div>
+                                        <!-- end row -->
+
+                                    </div>
                             <?php
                             if ($check == false ){
                             ?>
                                 <div class="row ">
                                     <div class="col-4">
                                 <a href="{{url('addfriend' . '/'. $user->id . '/')}} "class= "p-xxl-5 profile-link">
-                                <button class="btn btn-secondary btn-sm " type="submit" value="yes">Add Friend</button>
+                                <button class="btn btn-secondary btn-sm " type="submit" value="yes"><i class="fas fa-user-plus" style="font-size: x-large"></i> Add Friend</button>
                                 </a>
                                     </div>
 
@@ -75,7 +113,7 @@
 
                                     <div class="col-5">
                                 <a href="{{url('deleteFriend' . $user->id . '/')}}" class=" profile-link">
-                                    <button class="btn btn-secondary btn-sm">Remove Friend Request</button>
+                                    <button class="btn btn-secondary btn-sm"> <i class="fas fa-trash-alt" style="font-size: x-large"></i> Remove Friend Request</button>
                                 </a>
                                     </div>
                                     <?php      }

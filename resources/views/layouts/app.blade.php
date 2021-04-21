@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- CSRF Token -->
@@ -16,7 +17,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"defer></script>
     <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
     <!-- Styles -->
@@ -29,37 +30,103 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href={{ asset('css/all.min.css') }}>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body{
-            margin-top:20px;
-            background:#FAFAFA;
+            background: -webkit-linear-gradient(left, #2b84ff, #ffb7a7);
         }
-
-        .people-nearby .google-maps{
-            background: #f8f8f8;
-            border-radius: 4px;
-            border: 1px solid #f1f2f2;
-            padding: 20px;
-            margin-bottom: 20px;
+        .emp-profile{
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
         }
-
-        .people-nearby .google-maps .map{
-            height: 300px;
-            width: 100%;
+        .profile-img{
+            text-align: center;
+        }
+        .profile-img img{
+            width: 70%;
+            height: 100%;
+        }
+        .profile-img .file {
+            position: relative;
+            overflow: hidden;
+            margin-top: -20%;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+            font-size: 15px;
+            background: #212529b8;
+        }
+        .profile-img .file input {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .profile-head h5{
+            color: #333;
+        }
+        .profile-head h6{
+            color: #0062cc;
+        }
+        .profile-edit-btn{
+            border: none;
+            border-radius: 1.5rem;
+            width: 70%;
+            padding: 2%;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+        }
+        .proile-rating{
+            font-size: 12px;
+            color: #818182;
+            margin-top: 5%;
+        }
+        .proile-rating span{
+            color: #495057;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .profile-head .nav-tabs{
+            margin-bottom:5%;
+        }
+        .profile-head .nav-tabs .nav-link{
+            font-weight:600;
             border: none;
         }
-
-        .people-nearby .nearby-user{
-            padding: 20px 0;
-            border-top: 1px solid #f1f2f2;
-            border-bottom: 1px solid #f1f2f2;
-            margin-bottom: 20px;
+        .profile-head .nav-tabs .nav-link.active{
+            border: none;
+            border-bottom:2px solid #0062cc;
         }
-
-        img.profile-photo-lg{
-            height: 80px;
-            width: 80px;
-            border-radius: 50%;
+        .profile-work{
+            padding: 14%;
+            margin-top: -15%;
+        }
+        .profile-work p{
+            font-size: 12px;
+            color: #818182;
+            font-weight: 600;
+            margin-top: 10%;
+        }
+        .profile-work a{
+            text-decoration: none;
+            color: #495057;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .profile-work ul{
+            list-style: none;
+        }
+        .profile-tab label{
+            font-weight: 600;
+        }
+        .profile-tab p{
+            font-weight: 600;
+            color: #0062cc;
         }
     </style>
     <style>
@@ -87,7 +154,7 @@
             list-style: none;
         }
         .user-wrapper, .message-wrapper {
-            border: 1px solid #dddddd;
+            border: 1px ;
             overflow-y: auto;
         }
         .user-wrapper {
@@ -97,9 +164,12 @@
             cursor: pointer;
             padding: 5px 0;
             position: relative;
+
         }
         .user:hover {
-            background: #eeeeee;
+            background: #4ba6f7;
+
+
         }
         .user:last-child {
             margin-bottom: 0;
@@ -108,14 +178,14 @@
             position: absolute;
             left: 0px;
             top: 0px;
-            background: #b600ff;
+            background: #fbf4ff;
             margin: 0;
             border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            padding-left: 5px;
-            color: #ffffff;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 12px;
+            color: #010203;
             font-size: 12px;
         }
         .media-left {
@@ -131,8 +201,9 @@
         .message-wrapper {
             padding: 10px;
             height: 536px;
-            background: #eeeeee;
+            background: #c4ffe5;
         }
+
         .messages .message {
             margin-bottom: 15px;
         }
@@ -145,10 +216,10 @@
             border-radius: 10px;
         }
         .received {
-            background: #ffffff;
+            background: #f8f4ff;
         }
         .sent {
-            background: #3bebff;
+            background: #9cecff;
             float: right;
             text-align: right;
         }
@@ -160,7 +231,7 @@
             font-size: 12px;
         }
         .active {
-            background: #eeeeee;
+
         }
         input[type=text] {
             width: 100%;
@@ -170,20 +241,69 @@
             border-radius: 4px;
             box-sizing: border-box;
             outline: none;
-            border: 1px solid #cccccc;
+            border: 1px solid #3bebff;
         }
         input[type=text]:focus {
-            border: 1px solid #aaaaaa;
+            border: 1px solid #3bebff;
+        }
+    </style>
+    <style>
+        .card-box {
+            padding: 20px;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            background-color: #fff;
+        }
+
+        .social-links li a {
+            border-radius: 50%;
+            color: rgba(121, 121, 121, .8);
+            display: inline-block;
+            height: 30px;
+            line-height: 27px;
+            border: 2px solid rgba(121, 121, 121, .5);
+            text-align: center;
+            width: 30px
+        }
+
+        .social-links li a:hover {
+            color: #797979;
+            border: 2px solid #797979
+        }
+        .thumb-lg {
+            height: 88px;
+            width: 88px;
+        }
+        .img-thumbnail {
+            padding: .25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+            max-width: 100%;
+            height: auto;
+        }
+        .text-pink {
+            color: #ff679b!important;
+        }
+        .btn-rounded {
+            border-radius: 2em;
+        }
+        .text-muted {
+            color: #98a6ad!important;
+        }
+        h4 {
+            line-height: 22px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     <div id="app">
-        <header class="bg-blue-900 py-6">
+        <header class="bg-light-900 py-6">
             <div class="container mx-auto flex justify-between items-center px-6">
                 <div>
-                    <a href="{{ url('/home') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                        {{ config('app.name', 'Laravel') }}
+                    <a href="{{ url('/home') }}" class="text-lg font-semibold text-gray-100 no-underline" style="font-size: x-large">
+                        <i class="fas fa-university" style="font-size: x-large"></i> {{ config('app.name', 'Laravel') }}  <i class="fas fa-book-open" style="font-size: x-large"></i>
                     </a>
                 </div>
                 <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
@@ -308,5 +428,14 @@
             }, 50);
         }
     </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+
+    </script>
+
 </body>
 </html>
