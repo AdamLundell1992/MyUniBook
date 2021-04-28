@@ -8,10 +8,16 @@
 
                     <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
                         Change account Details
+                        <div class="pt-2">
+                            <a href="{{url('ChangeUserPassword' .'/' . $user->id . '/')}}" class="card-link">
+                                <i class="fas fa-user-check"></i> Click here to change password
+
+                            </a>
+                        </div>
                     </header>
 
                     <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST"
-                        action="/auth/{{$user->id}}" enctype="multipart/form-data">
+                          action="/auth/{{$user->id}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -32,12 +38,13 @@
                         </div>
                         <div class="flex flex-wrap ">
                             <label for="user_info" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                                <i class="fas fa-user-secret" style="font-size: x-large"></i> {{ __('User information') }}
+                                <i class="fas fa-user-secret"
+                                   style="font-size: x-large"></i> {{ __('User information') }}
                             </label>
 
                             <textarea id="user_info" type="text" value="{{Auth::user()->user_info}}"
-                                   class="form-input .val() w-full @error('user_info')  border-red-500 @enderror"
-                                   name="user_info" style="height: 100px" >{{Auth::user()->user_info}}
+                                      class="form-input .val() w-full @error('user_info')  border-red-500 @enderror"
+                                      name="user_info" style="height: 100px">{{Auth::user()->user_info}}
                           </textarea>
 
                             @error('user_info')
@@ -47,31 +54,35 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="fw-bold text-black-100 mb-1" ><i class="fas fa-graduation-cap" style="font-size: x-large"></i> University Course</label>
-                            <select class="form-control" name="UniCourse" id="UniCourse" >
+                            <label class="fw-bold text-black-100 mb-1"><i class="fas fa-graduation-cap"
+                                                                          style="font-size: x-large"></i> University
+                                Course</label>
+                            <select class="form-control" name="UniCourse" id="UniCourse">
                                 <li class="list-group-item">
                                     <option>{{Auth::user()->UniCourse}}</option>
                                 </li>
-                            <li class="list-group-item">
-                                <option value="Personal">Personal</option>
-                            </li>
-                            <li class="list-group-item">
-                                <option value="Software-Engineering">Software Engineering</option>
-                            </li>
-                            <li class="list-group-item">
-                                <option value="Electrical-Engineering">Electrical Engineering</option>
-                            </li>
-                            <li class="list-group-item">
-                                <option value="Mechanical-Engineering">Mechanical Engineering</option>
-                            </li>
-                            <li class="list-group-item">
-                                <option value="Computer Science">Computer Science</option>
-                            </li>
+                                <li class="list-group-item">
+                                    <option value="Personal">Personal</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Software-Engineering">Software Engineering</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Electrical-Engineering">Electrical Engineering</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Mechanical-Engineering">Mechanical Engineering</option>
+                                </li>
+                                <li class="list-group-item">
+                                    <option value="Computer Science">Computer Science</option>
+                                </li>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="fw-bold text-black-100 mb-1" ><i class="fas fa-school" style="font-size: x-large"></i> University Year</label>
-                            <select class="form-control" name="university_year" id="university_year" >
+                            <label class="fw-bold text-black-100 mb-1"><i class="fas fa-school"
+                                                                          style="font-size: x-large"></i> University
+                                Year</label>
+                            <select class="form-control" name="university_year" id="university_year">
                                 <li class="list-group-item">
                                     <option>{{Auth::user()->university_year}}</option>
                                 </li>
@@ -91,7 +102,8 @@
                                 <i class="far fa-calendar-alt" style="font-size: x-large"></i> {{ __('Date Of Birth') }}
                             </label>
 
-                            <input id="datepicker" type="text"  autocomplete="off" value="{{ Carbon\Carbon::parse(Auth::user()->date_of_birth)->format('d/m/Y') }}"
+                            <input id="datepicker" type="text" autocomplete="off"
+                                   value="{{ Carbon\Carbon::parse(Auth::user()->date_of_birth)->format('m/d/Y') }}"
                                    class="form-control autocomplete  datepicker w-full @error('date_of_birth')  border-red-500 @enderror"
                                    name="date_of_birth">
 
@@ -102,8 +114,10 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label class="fw-bold text-black-100 mb-1" ><i class="fas fa-venus-mars" style="font-size: x-large"></i> Gender <i class="fas fa-transgender-alt" style="font-size: x-large"></i></label>
-                            <select class="form-control" name="gender" id="gender" >
+                            <label class="fw-bold text-black-100 mb-1"><i class="fas fa-venus-mars"
+                                                                          style="font-size: x-large"></i> Gender <i
+                                    class="fas fa-transgender-alt" style="font-size: x-large"></i></label>
+                            <select class="form-control" name="gender" id="gender">
                                 <li class="list-group-item">
                                     <option>{{Auth::user()->gender}}</option>
                                 </li>
@@ -121,30 +135,31 @@
                                 </li>
                             </select>
                         </div>
-{{--                        <div class="flex flex-wrap">--}}
-{{--                            <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">--}}
-{{--                                {{ __('Password') }}:--}}
-{{--                            </label>--}}
+                        {{--                        <div class="flex flex-wrap">--}}
+                        {{--                            <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">--}}
+                        {{--                                {{ __('Password') }}:--}}
+                        {{--                            </label>--}}
 
-{{--                            <input id="password" type="password"--}}
-{{--                                   class="form-input w-full @error('password') border-red-500 @enderror" name="password"--}}
-{{--                                   autocomplete="new-password">--}}
+                        {{--                            <input id="password" type="password"--}}
+                        {{--                                   class="form-input w-full @error('password') border-red-500 @enderror" name="password"--}}
+                        {{--                                   autocomplete="new-password">--}}
 
-{{--                            @error('password')--}}
-{{--                            <p class="text-red-500 text-xs italic mt-4">--}}
-{{--                                {{ $message }}--}}
-{{--                            </p>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
+                        {{--                            @error('password')--}}
+                        {{--                            <p class="text-red-500 text-xs italic mt-4">--}}
+                        {{--                                {{ $message }}--}}
+                        {{--                            </p>--}}
+                        {{--                            @enderror--}}
+                        {{--                        </div>--}}
 
-{{--                        <div class="flex flex-wrap">--}}
-{{--                            <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">--}}
-{{--                                {{ __('Confirm Password') }}:--}}
-{{--                            </label>--}}
+                        {{--                        <div class="flex flex-wrap">--}}
+                        {{--                            <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">--}}
+                        {{--                                {{ __('Confirm Password') }}:--}}
+                        {{--                            </label>--}}
 
-{{--                            <input id="password-confirm" type="password" class="form-input w-full"--}}
-{{--                                   name="password_confirmation" autocomplete="new-password">--}}
-{{--                        </div>--}}
+                        {{--                            <input id="password-confirm" type="password" class="form-input w-full"--}}
+                        {{--                                   name="password_confirmation" autocomplete="new-password">--}}
+                        {{--                        </div>--}}
+
                         <label for="image" class="fw-bold mb-2 sm:mb-4">
                             <i class="fas fa-image" style="font-size: x-large"></i> {{ __('Profile Picture') }}
                         </label>

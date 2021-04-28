@@ -9,8 +9,9 @@
             <div class="col">
                 <div class="w-full p-6">
                     <div class=" control mb-3">
-                        <label for="post"  class="form-label">Update post</label>
-                        <textarea class="form-control @error('post')  border-red-500 @enderror" id="post" name="post"  rows="3" type="text" >{{$post->post}}
+                        <label for="post" class="form-label">Update post</label>
+                        <textarea class="form-control @error('post')  border-red-500 @enderror" id="post" name="post"
+                                  rows="3" type="text">{{$post->post}}
                   </textarea>
                         @error('post')
                         <p class="text-red-500 text-xs italic mt-4">

@@ -11,49 +11,44 @@ use Pusher\Pusher;
 
 class MessageController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
-
     public function index()
     {
-
+//This function will get a list of friends that the user can message with because the user should only be avaiable to message friends and not all users.
         $friends = Auth::user()->getFriends();
         $friend_ids = [];
-        foreach ($friends as $friend){
+        foreach ($friends as $friend) {
             $friend_ids[] = $friend->id;
         }
         $users = User::wherein('id', $friend_ids)->orderByDesc('updated_at')->get();
-
-
-        return view('messages.index',['users' => $users]);
+        return view('messages.index', ['users' => $users]);
     }
 
-    public function getMessage($user_id){
+    public function getMessage($user_id)
+    {
         $my_id = Auth::id();
 
-        Message::where(['from' => $user_id, 'to' => $my_id])->update(['is_read' => 1]);
+        Message::where(['from' => $user_id, 'to' => $my_id])->update(['is_read' => 1]); //updates unread message to read in the database
 
         $messages = Message::where(function ($query) use ($user_id, $my_id) {
-            $query->where('from', $user_id)->where('to', $my_id);
+            $query->where('from', $user_id)->where('to', $my_id); // check if the other user have send a message to the logged in user
         })->oRwhere(function ($query) use ($user_id, $my_id) {
-            $query->where('from', $my_id)->where('to', $user_id);
+            $query->where('from', $my_id)->where('to', $user_id);// check if the logged in user send a message to the other user .
         })->get();
-
-       return view('messages.show',['messages'=>$messages]);
+// Both ways need to be checked because 1 message data line in the data base will be from to and to from so to make it from
+// unread to read this is necessary.
+        return view('messages.show', ['messages' => $messages]);
     }
 
-    public function sendMessage(Request $request){
-
+    public function sendMessage(Request $request)
+    {
         {
-            $from = Auth::id();
-            $to = $request->receiver_id;
+            $from_User = Auth::id();
+            $to_User = $request->receiver_id;
             $message = $request->message;
 
             $data = new Message();
-            $data->from = $from;
-            $data->to = $to;
+            $data->from = $from_User;
+            $data->to = $to_User;
             $data->message = $message;
             $data->is_read = 0;
             $data->save();
@@ -71,68 +66,9 @@ class MessageController extends Controller
                 $options
             );
 
-            $data = ['from' => $from, 'to' => $to]; // sending from and to user id when pressed enter
+            $data = ['from' => $from_User, 'to' => $to_User]; // This is so the users can click enter instead of click on a send button
             $pusher->trigger('my-channel', 'my-event', $data);
         }
     }
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show(Message $message)
-    {
-        $users = DB::select("select users.id, users.name, users.avatar, users.email, count(is_read) as unread
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . "
-        group by users.id, users.name, users.image, users.email");
-
-        return view('messages/index',['users' => $users]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Message $message)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Message $message)
-    {
-        //
-    }
 }

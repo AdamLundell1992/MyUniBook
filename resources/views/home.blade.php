@@ -42,10 +42,8 @@ where('from','!=',Auth::user()->id)
                     <nav class="navbar navbar-light bg-light">
                         <div class="container-fluid">
                             <form class="d-flex" action="{{url('/search')}}">
-                                <input class="form-control me-2 @error('query')  border-red-500 @enderror" type="search"
-                                       name="query" id="query" placeholder="Search Friends" aria-label="Search">
-                                <button class="btn btn-outline-dark" type="submit"><i class="fas fa-search"
-                                                                                      style="font-size: x-large;color: #010203"></i>
+                                <input class="form-control me-2 @error('query')  border-red-500 @enderror" type="search" name="query" id="query" placeholder="Search Friends" aria-label="Search">
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-search" style="font-size: x-large"></i> Search
                                 </button>
                             </form>
                         </div>
